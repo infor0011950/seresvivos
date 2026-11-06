@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía Virtual del Cerro Verde</title>
+<style>
+:root{--green:#174d3b;--green2:#23664d;--leaf:#dcefe3;--gold:#e6b84a;--cream:#f7f6ef;--ink:#20312a;--muted:#64746c;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#e9f2eb,#f8f5e9);font-family:Arial,Helvetica,sans-serif;color:var(--ink);min-height:100vh}
+header{background:linear-gradient(120deg,#123d30dd,#1e6148dd),url('https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1800&q=80') center/cover;color:white;padding:34px 18px 30px;text-align:center}
+header .tag{display:inline-block;border:1px solid #ffffff80;border-radius:30px;padding:7px 13px;font-size:.82rem;letter-spacing:.04em}
+header h1{font-size:clamp(1.8rem,5vw,3rem);margin:14px 0 8px}header p{max-width:700px;margin:auto;line-height:1.55;color:#edf6ef}
+.wrap{max-width:1050px;margin:24px auto;padding:0 16px 36px;display:grid;grid-template-columns:290px 1fr;gap:18px}
+.panel,.chat{background:var(--white);border:1px solid #dce6de;border-radius:18px;box-shadow:0 8px 26px #173d2b12}
+.panel{padding:20px;height:max-content}.panel h2{font-size:1.05rem;color:var(--green);margin:0 0 12px}.panel p{font-size:.92rem;line-height:1.55;color:var(--muted)}
+.topic{display:flex;align-items:center;gap:10px;padding:10px 9px;border-radius:10px;margin:4px 0;background:#f5f8f4;font-size:.9rem}
+.topic span{font-size:1.2rem}.note{margin-top:16px;padding:12px;background:#fff8e5;border-left:3px solid var(--gold);border-radius:8px;font-size:.82rem;line-height:1.45}
+.chat{display:flex;flex-direction:column;min-height:620px;overflow:hidden}.chathead{padding:16px 20px;background:#f5f8f4;border-bottom:1px solid #e2eae3;display:flex;align-items:center;gap:11px}
+.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:white;font-size:1.35rem}.chathead strong{display:block;color:var(--green)}.status{font-size:.78rem;color:#5e7969;margin-top:3px}
+.messages{padding:20px;flex:1;overflow-y:auto;max-height:470px;background:linear-gradient(#fff,#fcfdfb)}
+.msg{max-width:86%;padding:12px 14px;border-radius:14px;margin:0 0 13px;line-height:1.5;font-size:.94rem;white-space:pre-wrap}
+.bot{background:#edf5ef;border:1px solid #dceade;border-top-left-radius:4px}.user{background:var(--green);color:white;margin-left:auto;border-top-right-radius:4px}
+.options{display:flex;flex-wrap:wrap;gap:8px;padding:0 20px 14px}
+.opt{border:1px solid #b9d1c0;background:white;color:var(--green);border-radius:22px;padding:9px 13px;cursor:pointer;font-size:.88rem}
+.opt:hover{background:var(--leaf)}.composer{display:flex;gap:9px;padding:14px 16px;border-top:1px solid #e5ece6;background:#fbfcfa}
+input{flex:1;min-width:0;border:1px solid #cbd9ce;border-radius:24px;padding:12px 15px;font-size:.95rem;outline:none}input:focus{border-color:var(--green2)}
+button.send{background:var(--green);color:white;border:0;border-radius:24px;padding:0 20px;font-weight:bold;cursor:pointer}.send:hover{background:var(--green2)}
+footer{text-align:center;color:#718078;font-size:.78rem;padding:0 15px 22px}
+@media(max-width:760px){.wrap{grid-template-columns:1fr}.panel{order:2}.chat{min-height:590px}.messages{max-height:430px}}
+</style>
+</head>
+<body>
+<header>
+  <span class="tag">EXPLORACIÓN • HISTORIA • NATURALEZA</span>
+  <h1>🌋 Guía Virtual del Cerro Verde</h1>
+  <p>¡Hola, explorador! Descubramos juntos uno de los paisajes naturales más especiales de El Salvador. Pregunta, observa y responde: la aventura comienza con tu curiosidad.</p>
+</header>
+<main class="wrap">
+  <aside class="panel">
+    <h2>🧭 Nuestro recorrido</h2>
+    <div class="topic"><span>📍</span> Ubicación y geografía</div>
+    <div class="topic"><span>🌋</span> Volcanes e historia geológica</div>
+    <div class="topic"><span>🌳</span> Bosque, flora y fauna</div>
+    <div class="topic"><span>🥾</span> Parque, senderos y turismo</div>
+    <div class="topic"><span>💡</span> Curiosidades y desafíos</div>
+    <div class="note"><strong>Consejo:</strong> escribe una pregunta o selecciona uno de los temas. El guía te dará pistas y te hará preguntas para que construyas tus propias respuestas.</div>
+  </aside>
+  <section class="chat" aria-label="Conversación con la guía virtual">
+    <div class="chathead"><div class="avatar">🌿</div><div><strong>Guía del Cerro Verde</strong><div class="status">● Guía educativo • modo demostración sin conexión a IA</div></div></div>
+    <div class="messages" id="messages" aria-live="polite">
+      <div class="msg bot">¡Bienvenido al Parque Natural Cerro Verde! 🌿 Soy tu guía virtual. No te contaré todo de golpe: iremos descubriendo el lugar paso a paso.\n\nPara comenzar, ¿qué te gustaría explorar?</div>
+    </div>
+    <div class="options" id="options">
+      <button class="opt" data-topic="ubicacion">📍 ¿Dónde está?</button>
+      <button class="opt" data-topic="volcanes">🌋 Los volcanes</button>
+      <button class="opt" data-topic="naturaleza">🌳 Flora y fauna</button>
+      <button class="opt" data-topic="historia">📜 Historia del parque</button>
+      <button class="opt" data-topic="curiosidades">💡 Curiosidades</button>
+      <button class="opt" data-topic="quiz">❓ ¡Ponme a prueba!</button>
+    </div>
+    <form class="composer" id="form">
+      <input id="input" autocomplete="off" placeholder="Escribe tu pregunta..." aria-label="Escribe tu pregunta">
+      <button class="send" type="submit">Enviar</button>
+    </form>
+  </section>
+</main>
+<footer>Material educativo para estudiantes de secundaria · Guía virtual de demostración</footer>
+<script>
+const messages=document.getElementById('messages'), options=document.getElementById('options'), input=document.getElementById('input');
+let quizStep=0, quizScore=0;
+function say(text,who='bot'){const div=document.createElement('div');div.className='msg '+who;div.textContent=text;messages.appendChild(div);messages.scrollTop=messages.scrollHeight;}
+function buttons(items){options.innerHTML='';items.forEach(([label,action])=>{const b=document.createElement('button');b.className='opt';b.textContent=label;b.onclick=action;options.appendChild(b);});}
+function showHome(){buttons([
+['📍 ¿Dónde está?',()=>topic('ubicacion')],['🌋 Los volcanes',()=>topic('volcanes')],
+['🌳 Flora y fauna',()=>topic('naturaleza')],['📜 Historia',()=>topic('historia')],
+['💡 Curiosidades',()=>topic('curiosidades')],['❓ ¡Ponme a prueba!',startQuiz]
+]);}
+const content={
+ubicacion:{text:'El Cerro Verde está en el occidente de El Salvador, en el departamento de Santa Ana. Forma parte del Parque Nacional Los Volcanes, dentro de un paisaje montañoso que permite observar los volcanes de Santa Ana e Izalco y, en días despejados, otros paisajes de la zona.',q:'Mira un mapa de El Salvador: ¿en qué punto cardinal ubicarías el departamento de Santa Ana?',opts:['Occidente','Oriente','Zona oriental costera'],correct:0,why:'¡Exacto! Santa Ana está en el occidente del país. La ubicación elevada del parque también influye en su clima.'},
+volcanes:{text:'El Cerro Verde es un antiguo volcán cubierto por vegetación. Desde sus alrededores se observan dos grandes vecinos: el volcán de Santa Ana o Ilamatepec, el más alto del país, y el volcán de Izalco, conocido históricamente por su actividad y por el resplandor que se veía durante sus erupciones.',q:'¿Cuál de estos volcanes es conocido como el más alto de El Salvador?',opts:['Volcán de Izalco','Volcán de Santa Ana o Ilamatepec','Cerro Verde'],correct:1,why:'¡Muy bien! El volcán de Santa Ana, también llamado Ilamatepec, es el más alto de El Salvador.'},
+naturaleza:{text:'El Cerro Verde conserva un bosque de montaña, con condiciones frescas y húmedas. En estos ambientes pueden crecer árboles, helechos, musgos y orquídeas. También habitan aves, insectos y pequeños mamíferos. La presencia y observación de especies puede variar según la temporada y el sector del parque.',q:'¿Por qué crees que los musgos y helechos encuentran condiciones favorables en un bosque húmedo?',opts:['Porque necesitan ambientes con humedad','Porque viven únicamente en arena seca','Porque no necesitan agua'],correct:0,why:'¡Correcto! La humedad favorece el crecimiento de musgos y muchos helechos. Por eso es importante cuidar el bosque y no extraer plantas.'},
+historia:{text:'El Cerro Verde es parte de un paisaje formado por procesos volcánicos que ocurrieron durante miles de años. Con el tiempo, la vegetación colonizó sus laderas y convirtió el antiguo relieve volcánico en un bosque de montaña. El área fue acondicionada como parque natural para proteger sus valores paisajísticos y facilitar la visita responsable.',q:'¿Qué proceso permitió que un antiguo paisaje volcánico llegara a estar cubierto de bosque?',opts:['La colonización y crecimiento de la vegetación','La desaparición de todas las lluvias','La construcción de edificios'],correct:0,why:'¡Así es! Las plantas fueron ocupando el terreno y, con el paso del tiempo, se desarrolló el bosque que hoy caracteriza al Cerro Verde.'},
+curiosidades:{text:'Una curiosidad: aunque se llama Cerro Verde, no es simplemente una montaña cualquiera; está relacionado con un antiguo edificio volcánico. Además, su altura y su bosque hacen que el ambiente sea mucho más fresco que en muchas zonas bajas del país.',q:'¿Qué elemento explica principalmente que el ambiente sea más fresco que en las tierras bajas?',opts:['La mayor altitud','La cercanía a una ciudad','El color de las rocas'],correct:0,why:'¡Exactamente! En general, la temperatura disminuye a medida que aumenta la altitud.'}
+};
+function topic(key){const d=content[key];if(!d)return;say(d.text);say('Ahora pensemos: '+d.q);buttons(d.opts.map((v,i)=>[v,()=>answer(i,d)]).concat([['↩ Volver al recorrido',showHome]]));}
+function answer(i,d){say(d.opts[i],'user');say(i===d.correct?d.why:'Buena reflexión. Pista: piensa en la característica principal que acabamos de conocer. '+d.why);say('¿Qué tema exploramos ahora?');showHome();}
+function startQuiz(){quizStep=0;quizScore=0;say('¡Comienza el desafío! Son tres preguntas. Lee con atención.');quiz();}
+const quiz=[
+{q:'¿En qué departamento se encuentra el Cerro Verde?',a:['Santa Ana','La Unión','La Paz'],c:0,why:'El parque se encuentra en el departamento de Santa Ana.'},
+{q:'¿Qué tipo de ambiente caracteriza al Cerro Verde?',a:['Desierto cálido','Bosque de montaña fresco y húmedo','Manglar costero'],c:1,why:'Su altitud favorece un ambiente de montaña fresco y húmedo.'},
+{q:'¿Qué acción ayuda a proteger el parque?',a:['Dejar basura en los senderos','Extraer plantas','Permanecer en los senderos y no dejar residuos'],c:2,why:'Visitar responsablemente reduce el daño al suelo, las plantas y los animales.'}
+];
+function quiz(){if(quizStep>=quiz.length){say('¡Desafío terminado! Obtuviste '+quizScore+' de 3 respuestas correctas. '+(quizScore===3?'¡Excelente trabajo, explorador!': 'Cada pregunta es una oportunidad para aprender.'));buttons([['🔁 Repetir desafío',startQuiz],['🧭 Volver al recorrido',showHome]]);return;}
+const q=quiz[quizStep];say('Pregunta '+(quizStep+1)+' de 3: '+q.q);buttons(q.a.map((v,i)=>[v,()=>{say(v,'user');if(i===q.c){quizScore++;say('¡Correcto! '+q.why);}else{say('No exactamente. '+q.why);}quizStep++;quiz();}]));}
+function freeQuestion(q){const s=q.toLowerCase();
+if(/hola|buenos días|buenas|saludos/.test(s)){say('¡Hola! Qué gusto tenerte en esta aventura. Puedes preguntarme por la ubicación, los volcanes, la historia, la naturaleza o las curiosidades.');return;}
+if(/dónde|ubicación|departamento|queda|lugar/.test(s)){topic('ubicacion');return;}
+if(/volcán|volcanes|izalco|ilamatepec|santa ana/.test(s)){topic('volcanes');return;}
+if(/animal|ave|flora|fauna|planta|árbol|bosque|orquídea/.test(s)){topic('naturaleza');return;}
+if(/historia|antiguo|formó|formación|origen/.test(s)){topic('historia');return;}
+if(/curiosidad|dato|frío|clima|temperatura|altura/.test(s)){topic('curiosidades');return;}
+if(/pregunta|prueba|evaluación|quiz|desafío/.test(s)){startQuiz();return;}
+say('¡Buena pregunta! En esta versión demostrativa puedo conversar sobre cinco temas: ubicación, volcanes, historia, flora y fauna, y curiosidades. Elige un tema para que te comparta información y te haga una pregunta.');showHome();}
+document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();const q=input.value.trim();if(!q)return;say(q,'user');input.value='';freeQuestion(q);});
+options.addEventListener('click',e=>{const b=e.target.closest('[data-topic]');if(b)topic(b.dataset.topic);});
+</script>
+</body>
+</html>
